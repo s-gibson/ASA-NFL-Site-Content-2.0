@@ -5,11 +5,11 @@
 ##############################
 
 ## Set data's most current week
-most.current <- 10
+most.current <- 13
 
 ######################## 2017
 ## Import data of weekly scores, O/U's
-OU.2017 <- read.csv("NFL/data/2017_DonBest_VegasData_NFL_Week.csv")
+OU.2017 <- read.csv("data/2017_DonBest_VegasData_NFL_Week.csv")
 
 # Create variables for year and week
 OU.2017$Year <- 2017
@@ -21,10 +21,10 @@ for (i in c(1:most.current)) {
 } 
 rm(i)
 
-OU.2017 <- OU.2017[-which(is.na(OU.2017$Week)),]
+OU.2017 <- OU.2017[which(!is.na(OU.2017$Week)),]
 
 # Import players' weekly fantasy points data
-Fantasy.2017 <- read.csv("NFL/data/2017_NFL_Fantasy_Points.csv")
+Fantasy.2017 <- read.csv("data/2017_NFL_Fantasy_Points.csv")
 Fantasy.2017 <- Fantasy.2017[-which(Fantasy.2017$Pos == "Def"),]
 Fantasy.2017$First.Name <- as.character(Fantasy.2017$First.Name)
 Fantasy.2017$Last.Name <- as.character(Fantasy.2017$Last.Name)
@@ -118,7 +118,7 @@ Fantasy.2017$Initial.Last <- paste(substr(Fantasy.2017$First.Last, start = 1, st
 
 ######################## 2016
 ## Import data of weekly scores, O/U's
-OU.2016 <- read.csv("NFL/data/2016_DonBest_VegasData_NFL_Week.csv")
+OU.2016 <- read.csv("data/2016_DonBest_VegasData_NFL_Week.csv")
 OU.2016 <- OU.2016[which(OU.2016$Regular.Season == 1),]
 
 # Create variables for year and week
@@ -134,7 +134,7 @@ rm(i)
 OU.2016 <- OU.2016[-which(is.na(OU.2016$Week)),]
 
 # Import players' weekly fantasy points data
-Fantasy.2016 <- read.csv("NFL/data/2016_NFL_Fantasy_Points.csv")
+Fantasy.2016 <- read.csv("data/2016_NFL_Fantasy_Points.csv")
 Fantasy.2016 <- Fantasy.2016[-which(Fantasy.2016$Pos == "Def"),]
 Fantasy.2016 <- Fantasy.2016[which(Fantasy.2016$Week > most.current),]
 Fantasy.2016$First.Name <- as.character(Fantasy.2016$First.Name)
@@ -278,7 +278,7 @@ Fantasy.2016_2017$Actual.Points <- as.numeric(Fantasy.2016_2017$Actual.Points)
 
 ## Save data
 save(Fantasy.2016_2017,Team.2016_2017,Fantasy.2016_2017.full,most.current,
-     file = "NFL/data/clean_data_2016_2017.RData")
+     file = "data/clean_data_2016_2017.RData")
 
 save(Fantasy.2016_2017,Team.2016_2017,Fantasy.2016_2017.full,most.current,
-     file = "NFL/Shiny App/clean_data_2016_2017.RData")
+     file = "Shiny App/clean_data_2016_2017.RData")

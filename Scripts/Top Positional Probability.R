@@ -6,14 +6,14 @@
 ##################################
 
 ### Import data, separate into 2016 and 2015 datasets
-setwd("~/Documents/ASA/ASA Site Content")
-load("NFL/data/clean_data_2016_2017.RData")
+# setwd("~/Documents/ASA/ASA Site Content")
+load("data/clean_data_2016_2017.RData")
 
 ### Create list of unique offensive players
 uniq.players <- unique(Fantasy.2016_2017[which(Fantasy.2016_2017$Pos != "Def"),c("First.Last","Team")])
                                                               
 ### Read in projected players .csv
-DraftKings.players <- read.csv("NFL/data/DraftKings.Lineup.csv")
+DraftKings.players <- read.csv("data/DraftKings.Lineup.csv")
 # Keep only players who aren't injured
 DraftKings.players <- DraftKings.players[which(is.na(DraftKings.players$Injury)),]
 
@@ -48,7 +48,7 @@ for (i in c(1:nrow(Top.QB.probs))) {
   Top.QB.probs$Prob[i] <- length(Top.QB[which(Top.QB[,1] == i)])/iter
 }
 Top.QB.probs <- cbind(data.frame(Rank = 1:nrow(Top.QB.probs)), Top.QB.probs[order(Top.QB.probs$Prob,decreasing = T),])
-write.csv(Top.QB.probs, file = "NFL/TPPs/QB.csv", row.names = F)
+write.csv(Top.QB.probs, file = "TPPs/QB.csv", row.names = F)
 
 ### Running Back (RB)
 uniq.RB <- unique(DraftKings.players$Name[which(DraftKings.players$Pos == "RB")])
@@ -77,7 +77,7 @@ for (i in c(1:nrow(Top.RB.probs))) {
   Top.RB.probs$Prob[i] <- length(Top.RB[which(Top.RB[,1] == i)])/iter
 }
 Top.RB.probs <- cbind(data.frame(Rank = 1:nrow(Top.RB.probs)), Top.RB.probs[order(Top.RB.probs$Prob,decreasing = T),])
-write.csv(Top.RB.probs, file = "NFL/TPPs/RB.csv", row.names = F)
+write.csv(Top.RB.probs, file = "TPPs/RB.csv", row.names = F)
 
 ### Wide Receiver (WR)
 uniq.WR <- unique(DraftKings.players$Name[which(DraftKings.players$Pos == "WR")])
@@ -106,7 +106,7 @@ for (i in c(1:nrow(Top.WR.probs))) {
   Top.WR.probs$Prob[i] <- length(Top.WR[which(Top.WR[,1] == i)])/iter
 }
 Top.WR.probs <- cbind(data.frame(Rank = 1:nrow(Top.WR.probs)), Top.WR.probs[order(Top.WR.probs$Prob,decreasing = T),])
-write.csv(Top.WR.probs, file = "NFL/TPPs/WR.csv", row.names = F)
+write.csv(Top.WR.probs, file = "TPPs/WR.csv", row.names = F)
 
 ### Tight End (TE)
 uniq.TE <- unique(DraftKings.players$Name[which(DraftKings.players$Pos == "TE")])
@@ -136,4 +136,4 @@ for (i in c(1:nrow(Top.TE.probs))) {
   Top.TE.probs$Prob[i] <- length(Top.TE[which(Top.TE[,1] == i)])/iter
 }
 Top.TE.probs <- cbind(data.frame(Rank = 1:nrow(Top.TE.probs)), Top.TE.probs[order(Top.TE.probs$Prob,decreasing = T),])
-write.csv(Top.TE.probs, file = "NFL/TPPs/TE.csv", row.names = F)
+write.csv(Top.TE.probs, file = "TPPs/TE.csv", row.names = F)
