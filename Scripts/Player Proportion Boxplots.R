@@ -9,7 +9,7 @@
 require(ggplot2)
 
 ## Load data
-load("NFL/data/clean_data_2016_2017.RData")
+load("data/clean_data_2016_2017.RData")
 
 # ## Create trendlines for all teams and their positional units, only charting players who are 
 # ## above positional cutoff threshold
@@ -177,7 +177,7 @@ for (i in 1:length(uniq.teams)) {
     ggtitle(paste(toupper(dat$Team[i]), "Proportion of Team Offensive Fantasy Points", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5))
     
-  ggsave(paste("NFL/Visualizations/Player Fantasy Proportions/Total Offense/",
+  ggsave(paste("Visualizations/Player Fantasy Proportions/Total Offense/",
                uniq.teams[i],".png", sep = ""))
   
   # RB
@@ -193,7 +193,7 @@ for (i in 1:length(uniq.teams)) {
     ggtitle(paste(toupper(dat$Team[i]), "Proportion of Team RB Fantasy Points", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5))
   
-  ggsave(paste("NFL/Visualizations/Player Fantasy Proportions/RB/",
+  ggsave(paste("Visualizations/Player Fantasy Proportions/RB/",
                dat$Team[i],".png", sep = ""))
   
   # WR/TE
@@ -209,7 +209,7 @@ for (i in 1:length(uniq.teams)) {
     ggtitle(paste(toupper(dat$Team[i]), "Proportion of Team WR/TE Fantasy Points", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5))
   
-  ggsave(paste("NFL/Visualizations/Player Fantasy Proportions/WR_TE/",
+  ggsave(paste("Visualizations/Player Fantasy Proportions/WR_TE/",
                dat$Team[i],".png", sep = ""))
 }
   
