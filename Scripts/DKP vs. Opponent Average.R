@@ -9,7 +9,7 @@
 require(ggplot2)
 
 ## Load data
-load("NFL/data/clean_data_2016_2017.RData")
+load("data/clean_data_2016_2017.RData")
 uniq.teams <- sort(unique(Fantasy.2016_2017.full$Team))
 
 ## Plot each teams' fantasy point total (total offense and positional units) vs. the average
@@ -61,7 +61,7 @@ for (i in 1:length(uniq.teams)) {
     xlab("Opponent Average FP/Game") +
     ylab("Total Positiona Unit Fantasy Points") #+
 
-  ggsave(paste("NFL/Visualizations/DKP vs. Opponent Average/",uniq.teams[i],".png", sep = ""))
+  ggsave(paste("Visualizations/DKP vs. Opponent Average/",uniq.teams[i],".png", sep = ""))
   
 }
 

@@ -8,8 +8,9 @@
 ## Load packages
 require(ggplot2)
 
-## Load data
-load("NFL/data/clean_data_2016_2017.RData")
+## Load data, set N_current_team_cutoff (Number of games played with current team)
+load("data/clean_data_2016_2017.RData")
+N_current_team_cutoff <- 6
 
 ## Create charts
 uniq.teams <- sort(unique(Fantasy.2016_2017$Team))
@@ -22,7 +23,7 @@ for (i in 1:length(uniq.teams)) {
                                    } else if (uniq.teams[i] == "sfo") {
                                      Fantasy.2016_2017$N_Current_team >= 7
                                    } else {
-                                     Fantasy.2016_2017$N_Current_team >= 4
+                                     Fantasy.2016_2017$N_Current_team >= N_current_team_cutoff
                                    }),]
   team.games <- data.frame(Players = unique(dat$First.Last),
                            Games = NA)
@@ -39,7 +40,7 @@ for (i in 1:length(uniq.teams)) {
     theme(plot.title = element_text(hjust = 0.5)) +
     scale_color_discrete(name = "Player")
     
-  ggsave(paste("NFL/Visualizations/Fantasy Point Comp Charts/Vs. Point Total/",uniq.teams[i],
+  ggsave(paste("Visualizations/Fantasy Point Comp Charts/Vs. Point Total/",uniq.teams[i],
                ".png", sep = ""))
   
   ggplot(data = dat, aes(x = Spread, y = DK.points, color = Initial.Last, group = First.Last)) +
@@ -51,6 +52,6 @@ for (i in 1:length(uniq.teams)) {
     theme(plot.title = element_text(hjust = 0.5)) +
     scale_color_discrete(name = "Player")
   
-  ggsave(paste("NFL/Visualizations/Fantasy Point Comp Charts/Vs. Spread/",uniq.teams[i],
+  ggsave(paste("Visualizations/Fantasy Point Comp Charts/Vs. Spread/",uniq.teams[i],
                ".png", sep = ""))
   }
