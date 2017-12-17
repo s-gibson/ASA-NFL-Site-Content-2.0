@@ -9,7 +9,7 @@
 require(corrplot)
 
 ## Load data
-load("NFL/data/clean_data_2016_2017.RData")
+load("data/clean_data_2016_2017.RData")
 
 # ## Create separate dataframes for each positional unit: QB, RB, WR/TE
 # QB.2016_2017 <- Fantasy.2016_2017[which(Fantasy.2016_2017$Pos == 'QB'),]
@@ -62,7 +62,7 @@ for (i in 1:length(uniq.teams)) {
     }
   }
   # create correlation plot
-  f1 <- paste('NFL/Visualizations/Correlation Matrices/By Player/', 
+  f1 <- paste('Visualizations/Correlation Matrices/By Player/', 
               uniq.teams[i], sep="")
   f2 <- paste(f1, '.png', sep = "")
   png(f2, height = 450, width = 550, pointsize = 22-ncol(corr.mat))
@@ -104,7 +104,7 @@ Weekly.depth$TE1[which(is.na(Weekly.depth$TE1))] <- 0
 
 for (i in 1:length(uniq.teams)) {
   corr.mat <- Weekly.depth[which(Weekly.depth$Team == uniq.teams[i]),]
-  f1 <- paste('NFL/Visualizations/Correlation Matrices/By Depth/', 
+  f1 <- paste('Visualizations/Correlation Matrices/By Depth/', 
               uniq.teams[i], sep="")
   f2 <- paste(f1, '.png', sep = "")
   png(f2, height = 450, width = 550, pointsize = 22-ncol(corr.mat))
