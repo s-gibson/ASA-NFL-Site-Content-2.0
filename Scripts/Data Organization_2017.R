@@ -49,9 +49,9 @@ for (i in c(1:32)) {
 rm(i, full.names)
 
 ## Create "team-level" dataframe
-OU.2017$Actual.Spread..Relative.to.Home.Team. <- 
-    as.numeric(levels(OU.2017$Actual.Spread..Relative.to.Home.Team.)[
-      as.numeric(OU.2017$Actual.Spread..Relative.to.Home.Team.)])
+# OU.2017$Actual.Spread..Relative.to.Home.Team. <- 
+#     as.numeric(levels(OU.2017$Actual.Spread..Relative.to.Home.Team.)[
+#       as.numeric(OU.2017$Actual.Spread..Relative.to.Home.Team.)])
 
 Team.2017_Home <- data.frame(unique(OU.2017[,c("Year","Week","Home.Team","Home.Team.Score",
                                                "Actual.Spread..Relative.to.Home.Team.")]))
@@ -233,21 +233,22 @@ Fantasy.2016_2017 <- rbind(Fantasy.2016,Fantasy.2017)
 Team.2016_2017 <- rbind(Team.2016,Team.2017)
 
 ## Add columns for number of data points (games) & total fantasy points in last 17 weeks for each player
-uniq.players <- unique(Fantasy.2016_2017[which(Fantasy.2016_2017$Year == 2017),c('First.Last','Team')])
+uniq.players <- unique(Fantasy.2016_2017$First.Last)
 Fantasy.2016_2017$N_Current_team <- 0
 Fantasy.2016_2017$Current_team <- 0
 Fantasy.2016_2017$Cum.DKP <- 0
 Fantasy.2016_2017$Avg.DKP <- 0
-for (i in 1:nrow(uniq.players)) {
-  dat <- Fantasy.2016_2017[which(Fantasy.2016_2017$First.Last == uniq.players[i,1]),]
+for (i in 1:length(uniq.players)) {
+  dat <- Fantasy.2016_2017[which(Fantasy.2016_2017$First.Last == uniq.players[i]),]
+  current_team <- dat$Team[which.max(dat$Week[which(dat$Year == 2017)])]
   
-  Fantasy.2016_2017$N_Current_team[which(Fantasy.2016_2017$First.Last == uniq.players[i,1])] <- 
-    length(which(dat$Team == uniq.players[i,2]))
-  Fantasy.2016_2017$Current_team[which(Fantasy.2016_2017$First.Last == uniq.players[i,1] &
-                                         Fantasy.2016_2017$Team == uniq.players[i,2])] <- 1
-  Fantasy.2016_2017$Cum.DKP[which(Fantasy.2016_2017$First.Last == uniq.players[i,1])] <- 
+  Fantasy.2016_2017$N_Current_team[which(Fantasy.2016_2017$First.Last == uniq.players[i])] <- 
+    length(which(dat$Team == current_team))
+  Fantasy.2016_2017$Current_team[which(Fantasy.2016_2017$First.Last == uniq.players[i] &
+                                         Fantasy.2016_2017$Team == current_team)] <- 1
+  Fantasy.2016_2017$Cum.DKP[which(Fantasy.2016_2017$First.Last == uniq.players[1])] <- 
     sum(dat$DK.points, na.rm = T)
-  Fantasy.2016_2017$Avg.DKP[which(Fantasy.2016_2017$First.Last == uniq.players[i,1])] <- 
+  Fantasy.2016_2017$Avg.DKP[which(Fantasy.2016_2017$First.Last == uniq.players[i])] <- 
     mean(dat$DK.points, na.rm = T)
 }
 
@@ -271,7 +272,7 @@ Fantasy.2016_2017.full <- Fantasy.2016_2017
 ## Keep only players who have scored at least N fantasy points in the last 17 weeks or have averaged
 ## greater than A fantasy points in the last 17 weeks and have also played at least 3 weeks.
 Fantasy.2016_2017 <- Fantasy.2016_2017[which(
-  Fantasy.2016_2017$Cum.DKP > 30 | Fantasy.2016_2017$Avg.DKP > 10),]
+  Fantasy.2016_2017$Cum.DKP > 50 | Fantasy.2016_2017$Avg.DKP > 10),]
 
 ## Change classes
 Fantasy.2016_2017$Actual.Points <- as.numeric(Fantasy.2016_2017$Actual.Points)
