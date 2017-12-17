@@ -102,6 +102,6 @@ for (i in 1:length(uniq.players)) {
     scale_y_continuous(limits = c(0, .75)) +
     ggtitle(paste(dat$First.Last[1], "DK Fantasy Points/$1K", sep = " ")) +
     theme(plot.title = element_text(hjust = 0.5))
-  ggsave(paste('Visualizations/Distributions/By Position/DKP per $1K/',
+  ggsave(paste('Visualizations/Distributions/By Position/DKP per 1K/',
                dat$Pos[1],"/", dat$First.Last[1],'.png', sep = ''))
 }
